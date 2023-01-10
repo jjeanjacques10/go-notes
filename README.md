@@ -9,5 +9,5 @@ Repository for record my learning in GO.
 
 ## Notes
 
-- := : Declaration and attribution  
-- & : The address of
+- `:=` : Declaration and attribution  
+- `&` : The address of
