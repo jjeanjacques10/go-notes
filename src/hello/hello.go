@@ -52,8 +52,16 @@ func readCommand() int {
 
 func startMonit() {
 	fmt.Println("Monitoring...")
+	var sites [4]string
+	sites[0] = "https://www.alura.com.br"
+	sites[1] = "https://jjeanjacques.com"
+	sites[2] = "https://www.caelum.com.br"
+
+	fmt.Println(sites)
+
 	url := "https://www.alura.com.br"
 	resp, _ := http.Get(url)
+
 	if resp.StatusCode == 200 {
 		fmt.Println("Website ", url, " has been displayed successfully")
 	} else {
