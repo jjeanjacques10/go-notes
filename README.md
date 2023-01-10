@@ -31,3 +31,12 @@ for {
 
 }
 ```
+
+- Create a slice (array abstract and dynamic)
+
+``` go
+func showNames(){
+ names := []string {"Jean", "Alice", "Kal-El"}
+ fmt.Println(names)
+}
+```

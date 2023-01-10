@@ -52,19 +52,19 @@ func readCommand() int {
 
 func startMonit() {
 	fmt.Println("Monitoring...")
-	var sites [4]string
-	sites[0] = "https://www.alura.com.br"
-	sites[1] = "https://jjeanjacques.com"
-	sites[2] = "https://www.caelum.com.br"
+	sites := []string{"https://www.alura.com.br", "https://jjeanjacques10.github.io",
+		"https://www.caelum.com.br"}
 
 	fmt.Println(sites)
 
-	url := "https://www.alura.com.br"
-	resp, _ := http.Get(url)
+	//for i := 0; i < len(sites); i++ {
+	for _, site := range sites {
+		resp, _ := http.Get(site)
 
-	if resp.StatusCode == 200 {
-		fmt.Println("Website ", url, " has been displayed successfully")
-	} else {
-		fmt.Println("Website ", url, " has a problem. Status Code:", resp.StatusCode)
+		if resp.StatusCode == 200 {
+			fmt.Println("Website ", site, " has been displayed successfully")
+		} else {
+			fmt.Println("Website ", site, " has a problem. Status Code:", resp.StatusCode)
+		}
 	}
 }
