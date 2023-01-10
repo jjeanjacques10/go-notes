@@ -40,3 +40,10 @@ func showNames(){
  fmt.Println(names)
 }
 ```
+
+- Convert types using strconv
+
+## Documentation
+
+- <https://pkg.go.dev/os>
+- <https://pkg.go.dev/time>
