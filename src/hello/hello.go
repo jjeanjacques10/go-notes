@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
@@ -56,8 +57,9 @@ func readCommand() int {
 
 func startMonit() {
 	fmt.Println("Monitoring...")
-	sites := []string{"https://www.alura.com.br", "https://jjeanjacques10.github.io",
-		"https://www.caelum.com.br"}
+	//sites := []string{"https://www.alura.com.br", "https://jjeanjacques10.github.io", "https://www.caelum.com.br"}
+
+	sites := readFile()
 
 	fmt.Println(sites)
 
@@ -70,11 +72,29 @@ func startMonit() {
 }
 
 func checkSite(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Website ", site, " has been displayed successfully")
 	} else {
 		fmt.Println("Website ", site, " has a problem. Status Code:", resp.StatusCode)
 	}
+}
+
+func readFile() []string {
+	var sites []string
+
+	//file, err := os.Open("sites.txt")
+	file, err := ioutil.ReadFile("sites.txt")
+
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+
+	fmt.Println(string(file))
+	return sites
 }
