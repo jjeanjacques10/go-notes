@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
+
+const MONITORING = 3
+const CHECK_DELAY = 5
 
 func main() {
 
@@ -57,14 +61,20 @@ func startMonit() {
 
 	fmt.Println(sites)
 
-	//for i := 0; i < len(sites); i++ {
-	for _, site := range sites {
-		resp, _ := http.Get(site)
-
-		if resp.StatusCode == 200 {
-			fmt.Println("Website ", site, " has been displayed successfully")
-		} else {
-			fmt.Println("Website ", site, " has a problem. Status Code:", resp.StatusCode)
+	for i := 0; i < MONITORING; i++ {
+		for _, site := range sites {
+			checkSite(site)
 		}
+		time.Sleep(CHECK_DELAY * time.Second)
+	}
+}
+
+func checkSite(site string) {
+	resp, _ := http.Get(site)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Website ", site, " has been displayed successfully")
+	} else {
+		fmt.Println("Website ", site, " has a problem. Status Code:", resp.StatusCode)
 	}
 }
