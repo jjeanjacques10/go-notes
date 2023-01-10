@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -27,6 +28,7 @@ func main() {
 			startMonit()
 		case 2:
 			fmt.Println("Showing logs...")
+			showLogs()
 		case 0:
 			fmt.Println("Exit...")
 			os.Exit(0)
@@ -62,7 +64,7 @@ func startMonit() {
 	fmt.Println("Monitoring...")
 	//sites := []string{"https://www.alura.com.br", "https://jjeanjacques10.github.io", "https://www.caelum.com.br"}
 
-	sites := readFile()
+	sites := readSitesFile()
 
 	fmt.Println(sites)
 
@@ -90,7 +92,7 @@ func checkSite(site string) {
 	}
 }
 
-func readFile() []string {
+func readSitesFile() []string {
 	var sites []string
 
 	file, err := os.Open("sites.txt")
@@ -111,6 +113,8 @@ func readFile() []string {
 			break
 		}
 	}
+
+	file.Close()
 	return sites
 }
 
@@ -124,4 +128,14 @@ func saveLog(site string, status bool) {
 	file.WriteString(time.Now().Format("02/01/2006 15:04:05") + " - " + site + " - online: " + strconv.FormatBool(status) + "\n")
 
 	file.Close()
+}
+
+func showLogs() {
+	file, err := ioutil.ReadFile("log.txt")
+
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+
+	fmt.Println(string(file))
 }
