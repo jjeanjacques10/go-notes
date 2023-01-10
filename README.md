@@ -11,3 +11,23 @@ Repository for record my learning in GO.
 
 - `:=` : Declaration and attribution  
 - `&` : The address of
+- Function to return two values
+
+``` go
+func getTwoNumbers() (int, int) {
+ number1 := 1
+ number2 := 2
+ return number1, number2
+}
+
+number1, number2 := getTwoNumbers()
+_, number2 := getTwoNumbers() // Ignore first return
+```
+
+- `while` not exist, but you can use `for`
+
+``` go
+for {
+
+}
+```

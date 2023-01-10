@@ -2,27 +2,30 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
 func main() {
 
 	showHelloWorld()
-	showMenu()
+	for {
+		showMenu()
 
-	command := readCommand()
+		command := readCommand()
 
-	switch command {
-	case 1:
-		fmt.Println("Monitoring...")
-	case 2:
-		fmt.Println("Showing logs...")
-	case 0:
-		fmt.Println("Exit...")
-		os.Exit(0)
-	default:
-		fmt.Println("Command not found")
-		os.Exit(-1)
+		switch command {
+		case 1:
+			startMonit()
+		case 2:
+			fmt.Println("Showing logs...")
+		case 0:
+			fmt.Println("Exit...")
+			os.Exit(0)
+		default:
+			fmt.Println("Command not found")
+			os.Exit(-1)
+		}
 	}
 }
 
@@ -45,4 +48,15 @@ func readCommand() int {
 
 	fmt.Println("The selected command was ", commandRead)
 	return commandRead
+}
+
+func startMonit() {
+	fmt.Println("Monitoring...")
+	url := "https://www.alura.com.br"
+	resp, _ := http.Get(url)
+	if resp.StatusCode == 200 {
+		fmt.Println("Website ", url, " has been displayed successfully")
+	} else {
+		fmt.Println("Website ", url, " has a problem. Status Code:", resp.StatusCode)
+	}
 }
