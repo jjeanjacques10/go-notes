@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -36,7 +38,7 @@ func main() {
 
 func showHelloWorld() {
 	name := "Barros"
-	var version float32 = 1.1
+	var version float32 = 1.2
 	fmt.Println("Hello World! Mr.", name)
 	fmt.Println("This software version is ", version)
 }
@@ -88,13 +90,23 @@ func checkSite(site string) {
 func readFile() []string {
 	var sites []string
 
-	//file, err := os.Open("sites.txt")
-	file, err := ioutil.ReadFile("sites.txt")
+	file, err := os.Open("sites.txt")
+	//file, err := ioutil.ReadFile("sites.txt")
 
 	if err != nil {
 		fmt.Println("Error: ", err)
 	}
 
-	fmt.Println(string(file))
+	reader := bufio.NewReader(file)
+
+	for {
+		line, err := reader.ReadString('\n')
+		line = strings.TrimSpace(line)
+		sites = append(sites, line)
+
+		if err == io.EOF {
+			break
+		}
+	}
 	return sites
 }
