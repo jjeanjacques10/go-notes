@@ -16,8 +16,17 @@ func main() {
 
 	var command int
 	fmt.Scan(&command)
-	//fmt.Scanf("%d", &command)
 
 	fmt.Println("The selected command was ", command)
-	fmt.Println("The address of my command variable is ", &command)
+
+	if command == 1 {
+		fmt.Println("Monitoring...")
+	} else if command == 2 {
+		fmt.Println("Showing logs...")
+	} else if command == 0 {
+		fmt.Println("Exit...")
+	} else {
+		fmt.Println("Command not found")
+	}
+
 }
